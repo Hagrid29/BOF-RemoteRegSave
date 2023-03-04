@@ -1,6 +1,6 @@
 # BOF - RemoteRegSave
 
-A fork of [RegSave BOF](https://github.com/EncodeGroup/BOF-RegSave). Dump SAM/SYSTEM/SECURITY registry key hives on local or remote computer for offline parsing and hash extraction..
+A fork of [RegSave BOF](https://github.com/EncodeGroup/BOF-RegSave). Dump SAM/SYSTEM/SECURITY registry key hives on local or remote computer using `RegConnectRegistryA` and `RegOpenKeyExA` for offline parsing and hash extraction.
 
 
 
